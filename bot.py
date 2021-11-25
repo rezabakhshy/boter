@@ -1,6 +1,5 @@
 from pyrogram import Client,filters
 import pytesseract
-from PIL import Image 
 from gtts import gTTS
 import os
 app = Client("my_accound",api_id=12721742,api_hash="2a81674bd5e1ccbaed8c07f898d614ca")
