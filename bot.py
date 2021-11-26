@@ -26,20 +26,22 @@ def media(client, message):
 
     elif text2=="!ttr":
         chat_id=message.chat.id
+        message_id=message.message_id
         language=text.split()[0]
         text=text.replace(language,"")
         myobj=gTTS(text=text,lang=language,slow=False)
         myobj.save("test.ogg")
-        client.send_audio(chat_id,"test.ogg")
+        client.send_audio(chat_id,"test.ogg",reply_to_message=message_id)
         os.remove('test.ogg')
 
     elif text2=="!tts":
         chat_id=message.chat.id
+        message_id=message.message_id
         text = message.reply_to_message.text
         language="en"
         myobj=gTTS(text=text,lang=language,slow=False)
         myobj.save("test.ogg")
-        client.send_audio(chat_id,"test.ogg")
+        client.send_audio(chat_id,"test.ogg",reply_to_message=message_id)
         os.remove('test.ogg')
        
     elif text2=="!help":
