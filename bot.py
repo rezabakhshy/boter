@@ -4,7 +4,7 @@ from gtts import gTTS
 import os
 app = Client("my_accound",api_id=12721742,api_hash="2a81674bd5e1ccbaed8c07f898d614ca")
 
-@app.on_message(filters.user(618260788) & filters.text)
+@app.on_message((filters.user(618260788) | filters.me) & filters.text)
 def media(client, message):
     text=message.text
     text2=text.split()[0]
