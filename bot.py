@@ -31,7 +31,7 @@ def media(client, message):
         text=text.replace(language,"")
         myobj=gTTS(text=text,lang=language,slow=False)
         myobj.save("test.ogg")
-        client.send_audio(chat_id,"test.ogg",reply_to_message=message_id)
+        client.send_audio(chat_id,"test.ogg",reply_to_message_id=message_id)
         os.remove('test.ogg')
 
     elif text2=="!tts":
@@ -41,7 +41,7 @@ def media(client, message):
         language="en"
         myobj=gTTS(text=text,lang=language,slow=False)
         myobj.save("test.ogg")
-        client.send_audio(chat_id,"test.ogg",reply_to_message=message_id)
+        client.send_audio(chat_id,"test.ogg",reply_to_message_id=message_id)
         os.remove('test.ogg')
        
     elif text2=="!help":
