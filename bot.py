@@ -5,6 +5,43 @@ import requests,time
 import os
 app = Client("my_accound",api_id=12721742,api_hash="2a81674bd5e1ccbaed8c07f898d614ca")
 
+@app.on_message((filters.me) & filters.regex("^!vazhe "))
+def vazhe(client,message):
+    text=message.text
+    chat_id=message.chat.id
+    name=text.replace("!vazhe ","")
+    Response=requests.post(f"https://api.codebazan.ir/vajehyab/?text={name}")
+    tex=Response.json()
+    fa=tex["result"]["fa"]
+    en=tex["result"]["en"]
+    moein=tex["result"]["Fmoein"]
+    deh=tex["result"]["Fdehkhoda"]
+    mo=tex["result"]["motaradefmotezad"]
+    text=f"**فارسی کلمه:** `{fa}`\n**انگلیسی کلمه: ** `{en}`\n\n**معنی کلمه در فرهنگ لغت معین: ** `{moein}`\n\n**معنی کلمه در فرهنگ لغت دهخدا: ** `{deh}`\n\n**مترادف و متضاد کلمه: ** `{mo}`"
+    client.edit_message_text(chat_id,message_id=message.message_id,text=text)
+
+@app.on_message((filters.me) & filters.regex("^!logo2 "))
+def logo2(client,message):
+    text=message.text
+    chat_id=message.chat.id
+    name=text.replace("!logo2 ","")
+    num=randint(58,109)
+    print(num)
+    Response=requests.post(f"https://api.codebazan.ir/ephoto/writeText?output=image&effect=create-online-black-and-white-layerlogo-{num}.html&text={name}")
+    with open("logo2.jpg","wb") as f:
+        f.write(Response.content)   
+    client.send_photo(chat_id,"logo2.jpg",reply_to_message_id=message.message_id)
+    os.remove("logo2.jpg")
+
+@app.on_message((filters.me) & filters.regex("^!num "))
+def numtofa(client,message):
+    text=message.text
+    chat_id=message.chat.id
+    nume=text.replace("!num ","")
+    Response=requests.post(f"https://api.codebazan.ir/num/?num={nume}")
+    tex=Response.json()
+    client.edit_message_text(chat_id,message_id=message.message_id,text=tex["result"]["num"])
+
 @app.on_message((filters.me) & filters.regex("^!pdf "))
 def webtopdf(client,message):
     text=message.text
@@ -118,14 +155,17 @@ def ttr(client,message):
 @app.on_message((filters.me) & filters.regex("^!help$"))
 def help(client,message):
     help=""
-    help+="**command:**\n!.\n**descriptin:**\nget string and send strrev\n/*/*/*/*/*/*/*/*/*/*/*/*/\n"
-    help+="**command:**\n!arz\n**descriptin:**\nsend list from name , price and change currency\n/*/*/*/*/*/*/*/*/*/*/*/*/\n"
-    help+="**command:**\n!font\n**descriptin:**\ngen name or any thing and send difrent fonts\n/*/*/*/*/*/*/*/*/*/*/*/*/\n"
-    help+="**command:**\n!fontfa\n**descriptin:**\nget persion text and send difrent font\n/*/*/*/*/*/*/*/*/*/*/*/*/\n"
-    help+="**command:**\n!logo\n**descriptin:**\nget text and send logo withe text\n/*/*/*/*/*/*/*/*/*/*/*/*/\n"
-    help+="**command:**\n!ttr\n**descriptin:**\nget language and text so send voice text withe input language \n/*/*/*/*/*/*/*/*/*/*/*/*/\n"
-    help+="**command:**\n!pdf\n**descriptin:**\nget link web and send pdf shot web \n/*/*/*/*/*/*/*/*/*/*/*/*/\n"
-    help+="**command:**\n!proxy\n**descriptin:**\nsend 20 MTproxy for telegram\n/*/*/*/*/*/*/*/*/*/*/*/*/\n"
-    help+="**command:**\n!pass\n**descriptin:**\nget number and genereat password to len number\n/*/*/*/*/*/*/*/*/*/*/*/*/\n"
+    help+="**command:**\n!vazhe\n**descriptin:**\nget word prsion and send meaning\n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
+    help+="**command:**\n!num\n**descriptin:**\nget number and send number to persion\n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
+    help+="**command:**\n!.\n**descriptin:**\nget string and send strrev\n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
+    help+="**command:**\n!arz\n**descriptin:**\nsend list from name , price and change currency\n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
+    help+="**command:**\n!font\n**descriptin:**\nget name or any thing and send difrent fonts\n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
+    help+="**command:**\n!fontfa\n**descriptin:**\nget persion text and send difrent font\n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
+    help+="**command:**\n!logo\n**descriptin:**\nget text and send logo withe text\n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
+    help+="**command:**\n!logo2\n**descriptin:**\nget text and send logo withe text\n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
+    help+="**command:**\n!ttr\n**descriptin:**\nget language and text so send voice text withe input language \n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
+    help+="**command:**\n!pdf\n**descriptin:**\nget link web and send pdf shot web \n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
+    help+="**command:**\n!proxy\n**descriptin:**\nsend 20 MTproxy for telegram\n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
+    help+="**command:**\n!pass\n**descriptin:**\nget number and genereat password to len number\n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
     client.edit_message_text(chat_id=message.chat.id,message_id=message.message_id,text=help)
 app.run()  # Automatically start() and idle()
