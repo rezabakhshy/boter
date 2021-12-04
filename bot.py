@@ -20,11 +20,11 @@ def vazhe(client,message):
     text=f"**فارسی کلمه:** `{fa}`\n**تلفظ کلمه: ** `{en}`\n\n**معنی کلمه در فرهنگ لغت معین: ** `{moein}`\n\n**معنی کلمه در فرهنگ لغت دهخدا: ** `{deh}`\n\n**مترادف و متضاد کلمه: ** `{mo}`"
     client.edit_message_text(chat_id,message_id=message.message_id,text=text)
 
-@app.on_message((filters.me) & filters.regex("^!logo2 "))
+@app.on_message((filters.me) & filters.regex("^!logo "))
 def logo2(client,message):
     text=message.text
     chat_id=message.chat.id
-    name=text.replace("!logo2 ","")
+    name=text.replace("!logo ","")
     num=randint(58,109)
     Response=requests.post(f"https://api.codebazan.ir/ephoto/writeText?output=image&effect=create-online-black-and-white-layerlogo-{num}.html&text={name}")
     with open("logo2.jpg","wb") as f:
@@ -127,19 +127,6 @@ def font(client,message):
         result+=f"**{i}:**`{font}`\n"
     client.edit_message_text(chat_id=message.chat.id,message_id=messag_id,text=result)
 
-@app.on_message((filters.me) & filters.regex("^!logo "))
-def logo(client,message):
-    text=message.text
-    chat_id=message.chat.id
-    messag_id=message.message_id
-    text=text.replace("!logo ","")
-    number=randint(1,110)
-    Response=requests.post(f"https://api.codebazan.ir/ephoto/writeText?output=image&effect=create-online-black-and-white-layer-logo-{number}.html&text={text}")
-    with open("test.jpg","wb") as f:
-        f.write(Response.content)
-    client.send_photo(chat_id,"test.jpg",reply_to_message_id=messag_id)
-    os.remove("test.jpg")
-    
 @app.on_message((filters.me) & filters.regex("^!ttr "))
 def ttr(client,message):
     text=message.reply_to_message.text
@@ -217,7 +204,7 @@ def visacard(client,message):
     client.edit_message_text(chat_id=message.chat.id,message_id=message.message_id,text=result)
 
 
-@app.on_message((filters.me) & filters.regex("^!meli "))
+@app.on_message((filters.me) & filters.regex("^!meli"))
 def meli(client,message):
     text=message.text
     code=text.replace("!meli ","")
@@ -258,7 +245,6 @@ def help(client,message):
     help+="**command:**\n!font\n**descriptin:**\nget name or any thing and send difrent fonts\n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
     help+="**command:**\n!fontfa\n**descriptin:**\nget persion text and send difrent font\n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
     help+="**command:**\n!logo\n**descriptin:**\nget text and send logo withe text\n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
-    help+="**command:**\n!logo2\n**descriptin:**\nget text and send logo withe text\n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
     help+="**command:**\n!ttr\n**descriptin:**\nget language and text so send voice text withe input language \n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
     help+="**command:**\n!pdf\n**descriptin:**\nget link web and send pdf shot web \n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
     help+="**command:**\n!proxy\n**descriptin:**\nsend 20 MTproxy for telegram\n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
