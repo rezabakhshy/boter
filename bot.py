@@ -143,14 +143,14 @@ def logo(client,message):
     
 @app.on_message((filters.me) & filters.regex("^!ttr "))
 def ttr(client,message):
-    text=message.text
+    text=message.reply_to_message.text
+    tex=message.text
     chat_id=message.chat.id
-    language=text.split()[0]
-    text=text.replace(language,"")
+    language=tex.replace("!ttr ","")
     myobj=gTTS(text=text,lang=language,slow=False)
-    myobj.save("test.ogg")
-    client.send_audio(chat_id,"test.ogg")
-    os.remove('test.ogg')
+    myobj.save("testvoice.ogg")
+    client.send_audio(chat_id,"testvoice.ogg",reply_to_message_id=message.message_id)
+    os.remove('testvoice.ogg')
 
 @app.on_message((filters.me) & filters.regex("^!help$"))
 def help(client,message):
