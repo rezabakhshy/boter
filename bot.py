@@ -24,7 +24,7 @@ def small_write(client, message):
             i=i+1
         time.sleep(0.3)
         client.edit_message_text(chat_id,message_id=message.message_id,text=tex)
-        
+
 @app.on_message((filters.me) & filters.regex("^!vazhe "))
 def vazhe(client,message):
     text=message.text
