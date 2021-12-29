@@ -5,6 +5,16 @@ import requests,time
 import os
 app = Client("my_accound",api_id=12721742,api_hash="2a81674bd5e1ccbaed8c07f898d614ca")
 
+@app.on_message((filters.me) & filters.regex("^! "))
+def small_write(client, message):
+    text=message.text
+    chat_id=message.chat.id
+    tex=""
+    text=text.replace("! ","")
+    for i in text:
+        tex+=i
+        time.sleep(0.5)
+        client.edit_message_text(chat_id,message_id=message.message_id,text=tex)
 @app.on_message((filters.me) & filters.regex("^!vazhe "))
 def vazhe(client,message):
     text=message.text
@@ -231,6 +241,7 @@ def air(client,message):
 @app.on_message((filters.me) & filters.regex("^!help$"))
 def help(client,message):
     help=""
+    help+="**command:**\n! \n**descriptin:**\nget text and print it slowly\n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
     help+="**command:**\n!air\n**descriptin:**\nget city and send climatic condition\n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
     help+="**command:**\n!meli\n**descriptin:**\nsend result sending code meli\n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
     help+="**command:**\n!card\n**descriptin:**\nsend credit card\n\n/*/*/*/*/*/*/*/*/*/*/*/*/\n\n"
