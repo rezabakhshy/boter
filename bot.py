@@ -11,10 +11,20 @@ def small_write(client, message):
     chat_id=message.chat.id
     tex=""
     text=text.replace("! ","")
-    for i in text:
-        tex+=i
-        time.sleep(0.5)
+    x=len(text)
+    i=0
+    while i<x:
+        if text[i]!=" ":
+            tex+=text[i]
+            i=i+1
+        else:
+            tex+=text[i]
+            i=i+1
+            tex+=text[i]
+            i=i+1
+        time.sleep(0.3)
         client.edit_message_text(chat_id,message_id=message.message_id,text=tex)
+        
 @app.on_message((filters.me) & filters.regex("^!vazhe "))
 def vazhe(client,message):
     text=message.text
